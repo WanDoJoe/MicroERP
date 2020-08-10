@@ -1,0 +1,112 @@
+
+
+  #请求数据加密
+#  isControllerAesCode: false
+#  #返回数据数据加密
+#  isAesCode: true
+#  AesCodeKey: 123123123
+#
+#  #前台传过数据是否加密
+#  isRequestBase64: false
+#  #返回给前台数据数据是否加密
+#  isResponseBase64: false
+
+server:
+  use-forward-headers: true
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
+    port-header: X-Forwarded-Port
+
+# JWT 配置
+jwtconfig:
+  jwt:
+#  秘钥
+    secret: wdqwdqwdqwdqwdqwdqwdqwdqwdqwdq
+#    超时时间
+    expire: 7200
+#    header名
+    header: Authorization
+
+logging:
+#日志相关配置
+  level:
+    root: INFO
+#    org.springframework.web: DEBUG
+#    org.hibernate=ERROR
+#    path: ..\\logs
+  path: ..\\mLoggs
+#    file: info.log
+#logging.file=demo.log
+
+mybatis:
+  configLocation: #classpath*:MyBatisConf.xml
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapperLocations: classpath*:mapper/*/*Mapper.xml
+#  typeAliasesPackage: com.bean.model.*
+
+
+spring:
+  datasource:
+      mysqldb:
+        # 6.x版本的MySQL JDBC驱动类为com.mysql.cj.jdbc.Driver
+        # 5.X版本的MySQL JDBC驱动类为com.mysql.jdbc.Driver
+  #      driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver
+        driverClassName:  com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/microstore?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+      h2db:
+        driverClassName: org.h2.Driver
+        jdbc-url: jdbc:h2:file:G:/MyWorkSpace/IDEAWorkSpace/MicroERP/src/main/resources/h2db/microerph2db;DB_CLOSE_DELAY=-1;FILE_LOCK=SOCKET
+        username: wdq
+        password: wdq
+        jpa:
+            database: h2
+            hibernate:
+              ddl-auto: none
+            show-sql: true
+        h2:
+         console:
+            settings:
+                 web-allow-others: false
+            path: /h2-console
+            enabled: true #开启web console功能
+
+
+  servlet:
+    multipart:
+      max-request-size: 140MB # 上传文件总的最大值
+      max-file-size: 130MB # 上传文件最大
+
+
+  cache:
+#    type: ehcache
+   type: redis
+#    ehcache:
+#      config: classpath:/ehcache.xml
+
+#  spring.redis.host=127.0.0.1
+   #redis集群配置
+  redis:
+      host: 127.0.0.1
+      # Redis服务器连接密码（默认为空）
+      password:
+      jedis:
+        pool:
+         # 连接池最大连接数（使用负值表示没有限制）
+          max-active: 5000
+         # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1
+         # 连接池中的最大空闲连接
+          max-idle: 30
+         # 连接池中的最小空闲连接
+          min-idle: 5
+      # 连接超时时间（毫秒）
+      timeout: 5000
+      commandTimeout: 50000
+      port: 6379
+      database: 0
+#      #集群
+##      cluster:
+##        nodes: 192.168.0.159:7001,192.168.0.159:7002,192.168.0.159:7003,192.168.0.159:7004,192.168.0.159:7005,192.168.0.159:7006

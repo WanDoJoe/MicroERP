@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wdqsoft.system.database.cms.mybatis.cmsh2db.CmsUserMapper" >
+  <resultMap id="BaseResultMap" type="com.wdqsoft.system.database.cms.bean.CmsUser" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LOGINNAME" property="loginname" jdbcType="VARCHAR" />
+    <result column="PASSWD" property="passwd" jdbcType="VARCHAR" />
+    <result column="ROLEID" property="roleid" jdbcType="INTEGER" />
+    <result column="CREATDATE" property="creatdate" jdbcType="DATE" />
+    <result column="STUTAS" property="stutas" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, LOGINNAME, PASSWD, ROLEID, CREATDATE, STUTAS, REMARK, ICON
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_USER
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from CMS_USER
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wdqsoft.system.database.cms.bean.CmsUser" >
+    insert into CMS_USER (ID, NAME, LOGINNAME, 
+      PASSWD, ROLEID, CREATDATE, 
+      STUTAS, REMARK, ICON
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, 
+      #{passwd,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{creatdate,jdbcType=DATE}, 
+      #{stutas,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wdqsoft.system.database.cms.bean.CmsUser" >
+    insert into CMS_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="loginname != null" >
+        LOGINNAME,
+      </if>
+      <if test="passwd != null" >
+        PASSWD,
+      </if>
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="creatdate != null" >
+        CREATDATE,
+      </if>
+      <if test="stutas != null" >
+        STUTAS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="creatdate != null" >
+        #{creatdate,jdbcType=DATE},
+      </if>
+      <if test="stutas != null" >
+        #{stutas,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wdqsoft.system.database.cms.bean.CmsUser" >
+    update CMS_USER
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        LOGINNAME = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        PASSWD = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        ROLEID = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="creatdate != null" >
+        CREATDATE = #{creatdate,jdbcType=DATE},
+      </if>
+      <if test="stutas != null" >
+        STUTAS = #{stutas,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wdqsoft.system.database.cms.bean.CmsUser" >
+    update CMS_USER
+    set NAME = #{name,jdbcType=VARCHAR},
+      LOGINNAME = #{loginname,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      ROLEID = #{roleid,jdbcType=INTEGER},
+      CREATDATE = #{creatdate,jdbcType=DATE},
+      STUTAS = #{stutas,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from CMS_USER m
+    where LOGINNAME = #{key}
+  </select>
+
+
+  <select id="selectByAll2Page" parameterType="map" resultType="com.wdqsoft.system.database.cms.bean.CmsUser">
+    SELECT * from CMS_USER  limit #{start},#{end}
+  </select>
+  <select id="selectByAll" resultType="com.wdqsoft.system.database.cms.bean.CmsUser">
+    SELECT * from CMS_USER
+  </select>
+
+</mapper>

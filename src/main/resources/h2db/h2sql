@@ -1,0 +1,35 @@
+create table CMS_ROLE
+(
+  ID       INTEGER AUTO_INCREMENT
+    primary key,
+  NAME     VARCHAR(64),
+  ROLECODE VARCHAR(255),
+  POWER    INTEGER default 2
+);
+
+comment on table CMS_ROLE
+is '角色表';
+
+comment on column CMS_ROLE.POWER
+is '1=管理员权限
+2=一般用户权限（可修改部分）
+3=游客模式（只可以查看）
+4=无权限（无法使用）';
+
+create table CMS_USER
+(
+  ID        INTEGER AUTO_INCREMENT
+    primary key,
+  NAME      VARCHAR(32)       not null,
+  LOGINNAME VARCHAR(64)       not null,
+  PASSWD    VARCHAR(64)       not null,
+  ROLEID    INTEGER default 2 not null,
+  CREATDATE DATE(10),
+  STUTAS    INTEGER default 1 not null,
+  REMARK    VARCHAR(500),
+  ICON      VARCHAR(255)
+);
+
+comment on table CMS_USER
+is '用户信息表';
+
