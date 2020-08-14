@@ -24,5 +24,6 @@ public interface CmsUserMapper {
 
     CmsUser selectByKey(@Param("key") String key);
     List<CmsUser> selectByPageinfo();
+    List<CmsUser> selectByAll();
     List<CmsUser> selectBylimt(@Param("start")int start,@Param("end")int end);
 }

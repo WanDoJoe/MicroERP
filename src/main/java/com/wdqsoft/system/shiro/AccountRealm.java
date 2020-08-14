@@ -1,7 +1,11 @@
 package com.wdqsoft.system.shiro;
 
+import com.wdqsoft.system.common.lang.Result;
+import com.wdqsoft.system.database.cms.bean.CmsUser;
+import com.wdqsoft.system.database.cms.mybatis.cmsh2db.CmsUserMapper;
 import com.wdqsoft.system.jwt.JwtToken;
 import com.wdqsoft.system.jwt.JwtUtils;
+import com.wdqsoft.system.services.impl.CmsUserService;
 import com.wdqsoft.system.services.interf.ShiroAccountUserServices;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -32,6 +36,8 @@ public class AccountRealm extends AuthorizingRealm {
         return token instanceof JwtToken;
     }
 
+    @Autowired
+    CmsUserService cmsUserService;
 //    @Autowired
 //    ShiroAccountUserServices shiroAccountUserServices;
 
@@ -89,20 +95,38 @@ public class AccountRealm extends AuthorizingRealm {
 //        log.info(jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject());
 //        TCmsManageuser tCmsManageuser=cmsUserService.selectById(Integer.valueOf(userid));
 //        AccountProfile profile= shiroAccountUserServices.accountUser(userid);
-
+        Result result= cmsUserService.selectByIdFromOne(Integer.valueOf(userid));
+        CmsUser user=new CmsUser();
+        if(result.getRc()==0){
+            if(result.getData()==null){
+                throw new UnknownAccountException("账户不存在");
+            }
+             user= (CmsUser) result.getData();
+            if(user.getStutas()==0){
+                throw new LockedAccountException("账户被锁定");
+            }
+        }else{
+            throw new UnknownAccountException("您没有权限!");
+        }
 //        if(profile==null){
 //            throw new UnknownAccountException("账户不存在");
 //        }
 //        if(profile.getIsavailable()==-1){
 //           throw new LockedAccountException("账户被锁定");
 //        }
-//        AccountProfile profile=new AccountProfile();
+        AccountProfile profile=new AccountProfile();
+        profile.setId(String.valueOf(user.getId()));
+        profile.setLoginname(user.getLoginname());
+        profile.setName(user.getName());
+        profile.setRole(String.valueOf(user.getRoleid()));
+        profile.setIsavailable(user.getStutas());
+
 //        user.setOid(userid);
 //        BeanUtils.copyProperties(tCmsManageuser,profile);
 
-        AccountProfile profile=new AccountProfile();
-        profile.setId(userid);
-        profile.setLoginname("admin");
+//        AccountProfile profile=new AccountProfile();
+//        profile.setId(userid);
+//        profile.setLoginname("admin");
 //        profile.setUsername("ad");
         profile.setIsavailable(1);
         System.out.println("-------"+profile.getId()+" -----"+profile.getRole()+"-----");

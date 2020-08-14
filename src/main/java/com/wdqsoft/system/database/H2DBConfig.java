@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "com.wdqsoft.system.database.cms.mybatis.cmsh2db"
         ,sqlSessionTemplateRef = "h2dbSqlSessionTemplate")
 public class H2DBConfig {
-    static final String MAPPER_LOCATION = "classpath*:mapper/mybatis/h2/*.xml";
+    static final String MAPPER_LOCATION = "classpath*:mybatis/mapper/h2db/*.xml";
     static final String TypeAliasesPackage="com.wdqsoft.system.database.cms.mybatis.bean";
 
     /**

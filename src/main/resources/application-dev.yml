@@ -42,7 +42,8 @@ logging:
 mybatis:
   configLocation: #classpath*:MyBatisConf.xml
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapperLocations: classpath*:mapper/*/*Mapper.xml
+#  mapperLocations: classpath*:mapper/*/*Mapper.xml
+  mapperLocations: classpath*:mybatis/*/*Mapper.xml
 #  typeAliasesPackage: com.bean.model.*
 
 

@@ -6,7 +6,7 @@ import com.wdqsoft.system.common.lang.Result;
 
 public class ErpPurchaseService extends ERPBaseService {
     @Override
-    protected Result selectByAllList(JSONObject object) {
+    public Result selectByAllList(JSONObject object) {
         return super.selectByAllList(object);
     }
 }

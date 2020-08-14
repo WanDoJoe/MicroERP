@@ -153,5 +153,9 @@
   <select id="selectByAll" resultType="com.wdqsoft.system.database.cms.bean.CmsUser">
     SELECT * from CMS_USER
   </select>
+  
+  <select id="selectByPageinfo" resultType="com.wdqsoft.system.database.cms.bean.CmsUser">
+    SELECT * from CMS_USER
+  </select>
 
 </mapper>
